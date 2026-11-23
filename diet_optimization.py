@@ -331,7 +331,7 @@ while True:
     age = get_int("Enter age: ", 18, 100)
     sex = get_choice("Enter sex (M/F): ", ["m", "f"])
     height = get_float("Enter height in cm: ", 120, 220)
-    weight = get_float("Enter weight in kg: ", 30, 250)
+    weight = get_float("Enter weight in kg: ", 30, 200)
 
     print("\nActivity Level")
     print("1. Sedentary")
