@@ -78,3 +78,24 @@ Sprouted Moong Curry,Main,150,140,20.0,10.0,2.0,7.0,1.0,16,Protein,1,sprouts
 Lobia Curry,Main,150,180,28.0,11.0,3.0,8.0,1.0,16,Protein,1,beans
 Paneer Salad Bowl,Main,150,200,6.0,16.0,13.0,2.0,2.0,63,Protein,1,paneer
 Broccoli Beans Stir Fry,Main,150,90,10.0,5.0,4.0,5.0,2.0,36,Vegetable,1,vegetable
+Masala Puri,Breakfast,180,290,42.0,7.0,11.0,5.0,4.0,25,Breakfast,1,puri
+Pav Bhaji,Main,250,320,45.0,8.0,12.0,7.0,6.0,35,Vegetable,1,vegetable
+Vegetable Biryani,Main,200,300,48.0,7.0,9.0,4.0,3.0,32,Rice,1,rice
+Chole Bhature,Main,250,430,58.0,13.0,17.0,9.0,5.0,38,Protein,1,chole_bhature
+Palak Corn,Main,150,180,14.0,6.0,11.0,4.0,3.0,32,Vegetable,1,vegetable
+Aloo Matar,Main,150,170,24.0,5.0,6.0,5.0,4.0,20,Vegetable,1,vegetable
+Baingan Bharta,Main,150,140,15.0,3.0,8.0,6.0,5.0,22,Vegetable,1,vegetable
+Dum Aloo,Main,150,220,25.0,4.0,12.0,4.0,3.0,28,Vegetable,1,potato
+Malai Kofta,Main,150,290,18.0,8.0,20.0,3.0,5.0,48,Vegetable,1,kofta
+Methi Malai Matar,Main,150,240,18.0,7.0,16.0,5.0,5.0,38,Vegetable,1,peas
+Vegetable Jalfrezi,Main,150,160,16.0,5.0,8.0,5.0,6.0,28,Vegetable,1,vegetable
+Dal Palak,Main,150,175,23.0,10.0,4.0,7.0,2.0,19,Protein,1,dal
+Pindi Chana,Main,150,215,31.0,11.0,6.0,8.0,3.0,22,Protein,1,beans
+Vegetable Hakka Noodles,Main,200,285,43.0,8.0,9.0,4.0,4.0,30,Rice,1,noodles
+Vegetable Fried Rice,Main,200,275,45.0,6.0,8.0,3.0,3.0,26,Rice,1,rice
+Dhokla,Breakfast,100,160,25.0,6.0,4.0,3.0,4.0,15,Breakfast,2,dhokla
+Khandvi,Breakfast,100,180,18.0,7.0,9.0,3.0,2.0,22,Breakfast,2,khandvi
+Sabudana Khichdi,Breakfast,180,285,48.0,3.0,9.0,2.0,2.0,22,Breakfast,1,sabudana
+Misal Pav,Breakfast,220,310,42.0,11.0,10.0,8.0,4.0,28,Breakfast,1,misal
+Vegetable Momos,Breakfast,150,190,30.0,6.0,5.0,3.0,3.0,28,Breakfast,1,momos
+Dal Baati,Main,220,360,48.0,12.0,13.0,8.0,3.0,32,Protein,1,dal_baati
