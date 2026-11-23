@@ -149,7 +149,7 @@ Download the project files or clone the repository:
 
 ```bash
 git clone https://github.com/JyotiradityaParida/Diet_Planner.git
-cd OptimalPoint
+cd Diet_Planner/code
 ```
 
 ### 3. Keep the Required Files Together
