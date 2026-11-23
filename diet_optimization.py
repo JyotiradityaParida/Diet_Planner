@@ -1,15 +1,13 @@
-
 import csv
 import numpy as np
 import cvxpy as cp
 
 
-with open("diet_dataset.csv", "r", newline="", encoding="utf-8-sig") as file:
+with open("diet_dataset.csv", "r", newline="") as file:
     foods = list(csv.DictReader(file))
 
 names = [food["food_name"] for food in foods]
 meal_types = [food["meal_type"].strip().lower() for food in foods]
-regions = [food["region"].strip().lower() for food in foods]
 categories = [food["category"].strip().lower() for food in foods]
 food_groups = [food["food_group"].strip().lower() for food in foods]
 
@@ -28,11 +26,11 @@ meal_names = ["Breakfast", "Lunch", "Dinner"]
 meal_shares = [0.25, 0.40, 0.35]
 
 nutrients = {
-    1: ("Protein", protein),
-    2: ("Carbohydrates", carbs),
-    3: ("Fat", fat),
-    4: ("Fibre", fibre),
-    5: ("Sugar", sugar)
+    1: "Protein",
+    2: "Carbohydrates",
+    3: "Fat",
+    4: "Fibre",
+    5: "Sugar"
 }
 
 
@@ -98,35 +96,7 @@ def calculate_calories(age, sex, height, weight, activity):
     return bmr * activity
 
 
-def normalize(values):
-    maximum = np.max(values)
-
-    if maximum <= 0:
-        return np.zeros(len(values))
-
-    return values / maximum
-
-
-def create_preference_score(high_nutrients, low_nutrients):
-    score = np.zeros(n)
-
-    for number in high_nutrients:
-        name, values = nutrients[number]
-        score += normalize(values)
-
-    for number in low_nutrients:
-        name, values = nutrients[number]
-        score -= normalize(values)
-
-    return score
-
-
 def optimize_diet(target, weight, high_nutrients, low_nutrients):
-    preference_score = create_preference_score(
-        high_nutrients,
-        low_nutrients
-    )
-
     x = cp.Variable((n, 3), integer=True)
     y = cp.Variable((n, 3), boolean=True)
 
@@ -168,22 +138,29 @@ def optimize_diet(target, weight, high_nutrients, low_nutrients):
 
     constraints += [
         total_calories >= target * 0.95,
-        total_calories <= target * 1.05,
-        total_carbs * 4 >= total_calories * 0.35,
-        total_carbs * 4 <= total_calories * 0.65,
-        total_fat * 9 >= total_calories * 0.20,
-        total_fibre >= 25,
-        total_sugar * 4 <= total_calories * 0.10,
-        total_protein >= 0.8 * weight
+        total_calories <= target * 1.05
     ]
 
-    for number in high_nutrients:
-        if number == 4:
-            constraints.append(total_fibre >= 25)
+    nutrient_limits = {
+        1: (0.8 * weight, 2 * weight, total_protein),
+        2: (total_calories * 0.35 / 4, total_calories * 0.65 / 4, total_carbs),
+        3: (total_calories * 0.20 / 9, total_calories * 0.30 / 9, total_fat),
+        4: (25, 100, total_fibre),
+        5: (0, total_calories * 0.10 / 4, total_sugar)
+    }
 
-    for number in low_nutrients:
-        if number == 5:
-            constraints.append(total_sugar * 4 <= total_calories * 0.10)
+    for number, (minimum, maximum, total) in nutrient_limits.items():
+        midpoint = (minimum + maximum) / 2
+
+        if number in high_nutrients:
+            constraints.append(total >= midpoint)
+        else:
+            constraints.append(total >= minimum)
+
+        if number in low_nutrients:
+            constraints.append(total <= midpoint)
+        else:
+            constraints.append(total <= maximum)
 
     for j in range(3):
         meal_calories = cp.sum(cp.multiply(calories, x[:, j]))
@@ -191,8 +168,8 @@ def optimize_diet(target, weight, high_nutrients, low_nutrients):
         meal_target = target * meal_shares[j]
 
         constraints += [
-            meal_calories >= meal_target * 0.65,
-            meal_calories <= meal_target * 1.35
+            meal_calories >= meal_target * 0.80,
+            meal_calories <= meal_target * 1.20
         ]
 
         if j == 0:
@@ -222,54 +199,16 @@ def optimize_diet(target, weight, high_nutrients, low_nutrients):
             if vegetable_indices:
                 constraints.append(cp.sum(y[vegetable_indices, j]) >= 1)
 
-    regional_options = ["north", "south"]
-    regional_choice = cp.Variable((2, 3), boolean=True)
-    regional_mismatch = cp.Variable((n, 3), boolean=True)
-
-    for j in range(3):
-        constraints.append(cp.sum(regional_choice[:, j]) == 1)
-
-        for i in range(n):
-            if regions[i] in regional_options:
-                region_index = regional_options.index(regions[i])
-
-                constraints.append(
-                    y[i, j] <= regional_choice[region_index, j] + regional_mismatch[i, j]
-                )
-
-        constraints.append(cp.sum(regional_mismatch[:, j]) <= 1)
-
-    first_problem = cp.Problem(
+    problem = cp.Problem(
         cp.Minimize(total_cost),
         constraints
     )
 
-    first_problem.solve(solver=cp.SCIPY)
+    problem.solve(solver=cp.SCIPY)
 
-    if first_problem.status not in ["optimal", "optimal_inaccurate"]:
+    if problem.status not in ["optimal", "optimal_inaccurate"]:
         print("\nA suitable diet plan could not be generated.")
-        print("Try changing the personal details or nutrient preferences.")
-        return
-
-    minimum_cost = total_cost.value
-
-    second_constraints = constraints + [
-        total_cost <= minimum_cost * 1.25
-    ]
-
-    selection_score = cp.sum(
-        cp.multiply(preference_score.reshape(-1, 1), x)
-    ) - 2 * cp.sum(regional_mismatch)
-
-    second_problem = cp.Problem(
-        cp.Maximize(selection_score),
-        second_constraints
-    )
-
-    second_problem.solve(solver=cp.SCIPY)
-
-    if second_problem.status not in ["optimal", "optimal_inaccurate"]:
-        print("\nCould not generate the improved meal plan.")
+        print("Try changing the personal details or nutrient selections.")
         return
 
     print("\n========== DIET PLAN ==========")
@@ -277,13 +216,13 @@ def optimize_diet(target, weight, high_nutrients, low_nutrients):
 
     print("\nNutrients to increase:")
     if high_nutrients:
-        print(", ".join(nutrients[i][0] for i in high_nutrients))
+        print(", ".join(nutrients[i] for i in high_nutrients))
     else:
         print("None")
 
     print("\nNutrients to decrease:")
     if low_nutrients:
-        print(", ".join(nutrients[i][0] for i in low_nutrients))
+        print(", ".join(nutrients[i] for i in low_nutrients))
     else:
         print("None")
 
@@ -317,8 +256,8 @@ def optimize_diet(target, weight, high_nutrients, low_nutrients):
 
     print("\n========== DAILY NUTRITION ==========")
     print(f"Calories: {total_calories.value:.1f} kcal")
-    print(f"Carbohydrates: {total_carbs.value:.1f} g")
     print(f"Protein: {total_protein.value:.1f} g")
+    print(f"Carbohydrates: {total_carbs.value:.1f} g")
     print(f"Fat: {total_fat.value:.1f} g")
     print(f"Fibre: {total_fibre.value:.1f} g")
     print(f"Sugar: {total_sugar.value:.1f} g")
