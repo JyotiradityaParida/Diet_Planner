@@ -1,0 +1,81 @@
+food_name,meal_type,serving_grams,calories,carbs,protein,fat,fibre,sugar,cost,region,category,max_servings,food_group
+Poha,Breakfast,180,250,45.0,5.0,5.0,3.0,2.0,18,South,Breakfast,1,poha
+Upma,Breakfast,180,220,38.0,6.0,6.0,3.0,2.0,18,South,Breakfast,1,upma
+Idli,Breakfast,60,58,12.0,2.0,0.2,0.5,0.1,4,South,Breakfast,6,idli
+Dosa,Breakfast,100,168,27.0,4.0,4.0,1.0,1.0,12,South,Breakfast,2,dosa
+Oats Porridge,Breakfast,200,160,27.0,7.0,4.0,4.0,3.0,27,Both,Breakfast,1,oats
+Vegetable Sandwich,Breakfast,150,240,35.0,8.0,8.0,4.0,3.0,30,Both,Breakfast,1,sandwich
+Paneer Bhurji,Breakfast,150,250,8.0,18.0,17.0,1.0,2.0,68,North,Protein,1,paneer
+Ragi Dosa,Breakfast,100,150,26.0,4.0,3.0,3.5,1.0,12,South,Breakfast,3,dosa
+Rava Idli,Breakfast,80,110,18.0,3.0,3.0,1.5,0.5,8,South,Breakfast,4,idli
+Pesarattu (Moong Dal Dosa),Breakfast,120,160,22.0,9.0,4.0,4.0,1.0,21,South,Breakfast,2,dal_breakfast
+Vegetable Uttapam,Breakfast,130,190,28.0,6.0,6.0,3.0,2.0,22,South,Breakfast,2,vegetable_uttapam
+Ven Pongal,Breakfast,180,240,36.0,6.0,8.0,2.0,1.0,14,South,Breakfast,1,pongal
+Aloo Paratha,Breakfast,120,260,36.0,6.0,10.0,3.0,1.0,15,North,Breakfast,2,flatbread
+Besan Chilla,Breakfast,100,170,17.0,9.0,7.0,4.0,2.0,18,North,Breakfast,2,besan
+Multigrain Daliya Porridge,Breakfast,200,170,30.0,6.0,3.0,5.0,2.0,20,North,Breakfast,1,daliya
+Suji Halwa,Breakfast,120,280,40.0,3.0,12.0,1.0,22.0,22,North,Breakfast,1,suji_halwa
+Moong Sprouts Salad,Breakfast,150,130,18.0,10.0,2.0,6.0,3.0,20,Both,Breakfast,1,sprouts
+Peanut Butter Toast,Breakfast,80,280,24.0,10.0,16.0,4.0,4.0,27,Both,Breakfast,1,toast
+Banana,Breakfast,120,105,27.0,1.3,0.4,3.0,14.0,9,Both,Breakfast,2,fruit
+Toned Milk,Breakfast,250,150,12.0,8.0,8.0,0.0,12.0,24,Both,Dairy,2,milk
+Tofu Scramble,Breakfast,150,160,4.0,16.0,9.0,2.0,1.0,57,Both,Protein,1,tofu
+Roti,Main,40,120,20.0,3.5,3.0,3.0,0.5,3,North,Roti,6,flatbread
+Multigrain Roti,Main,40,115,18.0,4.0,3.0,4.0,0.5,4,Both,Roti,6,flatbread
+Missi Roti,Main,45,140,20.0,6.0,4.0,4.0,1.0,5,North,Roti,4,flatbread
+Phulka (Low Oil),Main,30,85,17.0,3.0,0.5,2.5,0.3,3,North,Roti,6,flatbread
+Ragi Roti,Main,45,110,21.0,3.0,1.5,3.5,0.5,5,South,Roti,4,flatbread
+Jowar Roti,Main,40,100,21.0,3.0,0.7,3.0,0.3,5,Both,Roti,4,flatbread
+Rice,Main,180,230,50.0,4.0,0.5,0.5,0.1,5,Both,Rice,2,rice
+Brown Rice,Main,180,215,45.0,5.0,1.8,3.5,0.7,7,Both,Rice,2,rice
+Jeera Rice,Main,180,250,45.0,5.0,5.0,1.0,0.3,8,North,Rice,1,rice
+Curd Rice,Main,200,220,34.0,7.0,6.0,1.0,3.0,12,South,Rice,1,rice
+Lemon Rice,Main,200,260,42.0,5.0,8.0,2.0,1.0,9,South,Rice,1,rice
+Foxtail Millet Rice,Main,180,200,38.0,6.0,2.5,6.0,0.5,12,Both,Rice,1,rice
+Vegetable Pulao,Main,200,280,48.0,6.0,7.0,3.0,2.0,14,Both,Rice,1,rice
+Khichdi,Main,200,230,38.0,9.0,5.0,5.0,2.0,11,Both,Rice,1,rice
+Dal,Main,150,175,27.0,9.0,3.0,8.0,1.0,15,Both,Protein,1,dal
+Moong Dal,Main,150,150,22.0,11.0,2.0,6.0,1.0,16,Both,Protein,1,dal
+Masoor Dal,Main,150,160,24.0,12.0,2.0,7.0,1.0,15,North,Protein,1,dal
+Mixed Dal Soup,Main,200,140,22.0,9.0,3.0,6.0,1.0,18,Both,Protein,1,dal
+Rajma,Main,150,190,30.0,11.0,2.0,9.0,1.0,16,North,Protein,1,beans
+Chole,Main,150,210,30.0,10.0,6.0,8.0,2.0,18,North,Protein,1,beans
+Sambar,Main,150,120,18.0,6.0,3.0,5.0,2.0,15,South,Protein,1,sambar
+Black Chana Sundal,Main,150,200,28.0,11.0,5.0,9.0,2.0,16,South,Protein,1,beans
+Soya Chunk Curry,Main,150,180,12.0,22.0,5.0,5.0,2.0,20,Both,Protein,1,soya
+Tofu Stir Fry,Main,150,170,6.0,17.0,9.0,3.0,2.0,57,Both,Protein,1,tofu
+Palak Paneer,Main,150,220,10.0,12.0,15.0,4.0,2.0,60,North,Protein,1,paneer
+Matar Paneer,Main,150,230,12.0,12.0,15.0,4.0,3.0,63,North,Protein,1,paneer
+Paneer Tikka,Main,150,280,8.0,20.0,19.0,1.0,2.0,72,North,Protein,1,paneer
+Tofu Tikka,Main,150,190,7.0,19.0,10.0,2.0,1.0,60,North,Protein,1,tofu
+Mixed Vegetable Sabzi,Main,150,130,18.0,4.0,5.0,5.0,3.0,18,Both,Vegetable,1,vegetable
+Cabbage Sabzi,Main,150,110,15.0,3.0,4.0,4.0,3.0,15,Both,Vegetable,1,vegetable
+Aloo Gobi,Main,150,150,20.0,4.0,6.0,4.0,2.0,18,North,Vegetable,1,vegetable
+Bhindi Sabzi,Main,150,110,12.0,3.0,6.0,5.0,2.0,21,North,Vegetable,1,vegetable
+Lauki Sabzi,Main,150,70,8.0,2.0,3.0,3.0,3.0,15,Both,Vegetable,1,vegetable
+Palak Sabzi,Main,150,90,8.0,5.0,4.0,5.0,1.0,18,Both,Vegetable,1,vegetable
+Avial,Main,150,150,12.0,3.0,10.0,4.0,2.0,22,South,Vegetable,1,vegetable
+Beans Poriyal,Main,150,100,10.0,3.0,5.0,4.0,2.0,22,South,Vegetable,1,vegetable
+Kachumber Salad,Main,100,40,8.0,1.5,0.3,2.0,4.0,12,Both,Vegetable,1,salad
+Curd,Main,100,60,5.0,3.5,3.0,0.0,4.0,12,Both,Dairy,1,curd
+Low Fat Curd,Main,150,70,7.0,8.0,1.0,0.0,5.0,18,Both,Dairy,1,curd
+Buttermilk (Chaas),Main,200,40,4.0,2.0,1.5,0.0,3.0,12,Both,Dairy,2,buttermilk
+Raita,Main,100,70,6.0,3.0,3.5,0.5,4.0,15,North,Dairy,1,raita
+Appam,Breakfast,100,120,24.0,2.0,1.5,1.0,2.0,6,South,Breakfast,3,appam
+Neer Dosa,Breakfast,80,100,21.0,2.0,1.0,0.5,0.3,5,South,Breakfast,3,dosa
+Medu Vada,Breakfast,60,150,14.0,5.0,8.0,2.0,0.5,14,South,Breakfast,3,medu_vada
+Paneer Paratha,Breakfast,130,300,32.0,11.0,14.0,3.0,1.0,45,North,Breakfast,1,paneer
+Methi Paratha,Breakfast,100,200,26.0,6.0,8.0,4.0,1.0,12,North,Breakfast,2,flatbread
+Ragi Malt Porridge,Breakfast,200,140,26.0,4.0,2.0,4.0,6.0,20,South,Breakfast,1,ragi_porridge
+Fruit Bowl,Breakfast,200,90,22.0,1.0,0.3,4.0,15.0,30,Both,Breakfast,1,fruit
+Soy Milk Unsweetened,Breakfast,250,110,8.0,9.0,5.0,1.0,3.0,42,Both,Dairy,2,soy_milk
+Greek Yogurt with Nuts,Breakfast,150,180,8.0,14.0,10.0,1.5,5.0,57,Both,Dairy,1,yogurt
+Bajra Roti,Main,45,120,22.0,3.5,2.5,3.5,0.3,5,North,Roti,4,flatbread
+Plain Paratha,Main,60,200,26.0,4.0,9.0,2.0,0.5,9,North,Roti,3,flatbread
+Quinoa Pulao,Main,180,220,37.0,8.0,4.0,5.0,1.0,30,Both,Rice,1,rice
+Puliyogare (Tamarind Rice),Main,200,290,46.0,5.0,10.0,3.0,3.0,10,South,Rice,1,rice
+Chana Dal,Main,150,200,28.0,12.0,4.0,8.0,2.0,16,North,Protein,1,dal
+Sprouted Moong Curry,Main,150,140,20.0,10.0,2.0,7.0,1.0,16,Both,Protein,1,sprouts
+Lobia Curry,Main,150,180,28.0,11.0,3.0,8.0,1.0,16,North,Protein,1,beans
+Paneer Salad Bowl,Main,150,200,6.0,16.0,13.0,2.0,2.0,63,Both,Protein,1,paneer
+Broccoli Beans Stir Fry,Main,150,90,10.0,5.0,4.0,5.0,2.0,36,Both,Vegetable,1,vegetable
