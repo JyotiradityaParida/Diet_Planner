@@ -1,8 +1,12 @@
 # Optimal Diet Planning Using Linear Programming
 
-A Python application that uses Linear Programming to generate an affordable daily vegetarian meal plan from an Indian food dataset. It estimates the user's daily calorie requirement and selects foods and serving quantities while satisfying calorie, nutrient and meal-related constraints.
+A Python application that uses Linear Programming to generate an
+affordable daily vegetarian meal plan using a dataset of Indian food
+items. It estimates the user's daily calorie requirement and determines
+food combinations and serving quantities while satisfying calorie,
+nutritional and meal-related constraints.
 
----
+------------------------------------------------------------------------
 
 ## Team Details
 
@@ -10,49 +14,73 @@ A Python application that uses Linear Programming to generate an affordable dail
 
 ### Team Members
 
-**1. Soumya Gupta**
-- Member ID: BA2025049
+**1. Soumya Gupta** - Roll number: BA2025049
 
-**2. Jyotiraditya Parida**
-- Member ID: BA2025017
+**2. Jyotiraditya Parida** - Roll number: BA2025017
 
----
+------------------------------------------------------------------------
 
 ## Project Description
 
-The project aims to find a low-cost daily diet plan that meets the user's estimated calorie requirement and selected nutritional preferences.
-The application uses a dataset of common Indian vegetarian food items. Each item includes its meal type, serving size, calories, carbohydrates, protein, fat, fibre, sugar and cost.
-The user provides personal details, including age, height, weight, sex and activity level, and specifies which nutrients they would like to increase or limit in their daily diet. The optimization model determines which foods to include in breakfast, lunch and dinner, along with the number of servings of each food.
-The main objective is to **minimize the total daily food cost** while satisfying the model's constraints.
+The project aims to generate a low-cost daily vegetarian diet plan that
+meets the user's estimated calorie requirement and selected nutritional
+preferences.
+
+The application uses a synthetic dataset containing 100 common Indian
+vegetarian food items. Each item includes its meal type, serving size,
+calories, carbohydrates, protein, fat, fibre, sugar, cost, category,
+maximum daily servings and food group.
+
+The user provides personal details, including age, sex, height, weight
+and activity level, and specifies which nutrients they would like to
+increase or decrease in their daily diet.
+
+The optimization model determines the number of servings of each food
+item to include in breakfast, lunch and dinner.
+
+The main objective is to **minimize the total daily food cost** while
+satisfying the implemented constraints.
 
 ## How the Project Works
 
-1. **Load the dataset:** Reads food information from `diet_dataset.csv`.
-2. **Collect user details:** Asks for age, sex, height, weight and activity level.
-3. **Calculate calorie requirement:** Estimates daily calories using the Mifflin--St Jeor equation and an activity multiplier.
-4. **Collect nutrient preferences:** Lets the user select nutrients to increase and nutrients to decrease.
-5. **Build the optimization model:** Creates decision variables for food servings and food selection across three meals.
-6. **Apply constraints:** Enforces daily calorie, nutrient, serving, food-group and meal-wise restrictions.
-7. **Optimize the cost:** Finds a feasible meal plan with the minimum estimated cost.
-8. **Display the result:** Shows selected foods, serving quantities, calories, meal costs, daily nutrition totals and total estimated cost.
+1.  **Load the dataset:** Reads food information from `diet_dataset.csv`
+    using Python's CSV reader.
+2.  **Collect user details:** Asks for age, sex, height, weight and
+    activity level.
+3.  **Calculate calorie requirement:** Estimates daily calories using
+    the Mifflin-St Jeor equation and an activity multiplier.
+4.  **Collect nutrient preferences:** Allows users to select nutrients
+    to increase and nutrients to decrease.
+5.  **Build the optimization model:** Creates integer decision variables
+    representing the number of servings of each food item assigned to
+    each meal.
+6.  **Apply constraints:** Enforces daily calorie, nutritional,
+    individual serving, food-group and meal-wise restrictions.
+7.  **Optimize the cost:** Finds a feasible meal plan with the minimum
+    estimated daily cost.
+8.  **Display the result:** Shows selected foods, serving quantities,
+    gram amounts, calories, meal costs, daily nutrition totals and total
+    estimated cost.
+9.  **Repeat if requested:** Allows users to enter another profile and
+    generate another diet plan without restarting the application.
 
 ## User Inputs and Menu
 
 At startup, the program asks for:
 
-- Age
-- Sex (M/F)
-- Height in centimetres
-- Weight in kilograms
-- Activity level:
-  - Sedentary
-  - Lightly Active
-  - Moderately Active
-  - Very Active
+-   Age (18--100 years)
+-   Sex (M/F)
+-   Height (120--220 cm)
+-   Weight (30--200 kg)
+-   Activity level:
+    -   Sedentary
+    -   Lightly Active
+    -   Moderately Active
+    -   Very Active
 
 The user then selects nutrients to increase and nutrients to decrease:
 
-```text
+``` text
 1. Protein
 2. Carbohydrates
 3. Fat
@@ -60,116 +88,167 @@ The user then selects nutrients to increase and nutrients to decrease:
 5. Sugar
 ```
 
-Multiple nutrient numbers can be entered, separated by spaces or commas. A nutrient cannot be selected as both high and low. After the meal plan is displayed, the program asks whether another plan should be generated.
+Multiple nutrient numbers can be entered, separated by spaces or commas.
+Duplicate selections are rejected and a nutrient cannot be selected as
+both high and low. Empty selections are also allowed.
 
 ## Optimization Model
 
 ### Decision Variables
 
-- `x[i,j]`: Integer number of servings of food item `i` assigned to meal `j`.
-- `y[i,j]`: Binary variable indicating whether food item `i` is selected for meal `j` (1 = selected, 0 = not selected).
+The model uses one integer decision variable for every food--meal
+combination:
+
+-   `x[i,j]`: Integer number of servings of food item `i` assigned to
+    meal `j`.
 
 The three meals are breakfast, lunch and dinner.
+
+With 100 food items and 3 meals, the model contains **300 integer
+decision variables**.
+
+The model is formulated as an Integer Linear Programming (ILP) problem
+because all decision variables are integer-valued and the objective
+function and constraints are linear.
 
 ### Objective Function
 
 Minimize the total cost of all selected food servings:
 
-**Minimize:** sum of `cost[i] * x[i,j]` over all foods and meals.
+**Minimize:** Sum of `cost[i] * x[i,j]` over all food items and meals.
 
-Here, `cost[i]` is the cost per serving of food item `i`.
+Here, `cost[i]` represents the cost per serving of food item `i`.
 
 ### Main Constraints
 
-**Daily calories**
+**Daily Calories**
 
-Total daily calories must be between 95% and 105% of the estimated calorie requirement.
+Total daily calories must remain between 95% and 105% of the estimated
+calorie requirement.
 
-**Meal-wise calories**
+**Meal-wise Calories**
 
 The daily calorie target is distributed as follows:
 
-### Meal Calorie Share
+  Meal          Calorie Share
+  ----------- ---------------
+  Breakfast               25%
+  Lunch                   40%
+  Dinner                  35%
 
-| Meal | Calorie Share |
-|---|---:|
-| Breakfast | 25% |
-| Lunch | 40% |
-| Dinner | 35% |
+Each meal must contain between 80% and 120% of its allocated calorie
+target.
 
-Each meal must contain between **80% and 120%** of its allocated calorie target.
+**Nutritional Limits**
 
-### Nutritional Limits
+  Nutrient        Minimum                 Maximum
+  --------------- ----------------------- ----------------------
+  Protein         0.8 × Body Weight (g)   2 × Body Weight (g)
+  Carbohydrates   (35% × Calories) ÷ 4    (65% × Calories) ÷ 4
+  Fat             (20% × Calories) ÷ 9    (30% × Calories) ÷ 9
+  Fibre           25 g                    100 g
+  Sugar           0 g                     (10% × Calories) ÷ 4
 
-| Nutrient | Minimum | Maximum |
-|---|---|---|
-| Protein | 0.8 × Body Weight (g) | 2 × Body Weight (g) |
-| Carbohydrates | (35% × Calories) ÷ 4 | (65% × Calories) ÷ 4 |
-| Fat | (20% × Calories) ÷ 9 | (30% × Calories) ÷ 9 |
-| Fibre | 25 g | 100 g |
-| Sugar | 0 g | (10% × Calories) ÷ 4 |
+**Nutrient Preferences**
 
-If the constraints cannot all be satisfied, the solver reports that a suitable plan could not be generated.
+For each nutrient, the model calculates the midpoint between its minimum
+and maximum limits.
+
+-   Selecting a nutrient to increase raises its minimum limit to the
+    midpoint.
+-   Selecting a nutrient to decrease lowers its maximum limit to the
+    midpoint.
+-   Nutrients without selected preferences retain their original limits.
+
+**Serving and Food-Group Restrictions**
+
+-   The total daily servings of each individual food item cannot exceed
+    its maximum daily serving limit specified in the dataset.
+-   Combined servings belonging to the same food group are restricted
+    separately for each meal using predefined limits in the Python code.
+-   Each food item is restricted to its permitted meal.
+-   Lunch and dinner must each contain at least one serving from the
+    Protein category and at least one serving from the Vegetable
+    category.
+
+If the constraints cannot all be satisfied, the solver reports that a
+suitable diet plan could not be generated.
 
 ## Technologies and Libraries Used
 
-| Technology / Library | Purpose |
-|---|---|
-| **Python** | Main programming language |
-| **CVXPY** | Defines optimization variables, objective function and constraints |
-| **NumPy** | Handles numerical arrays and food nutrient data |
-| **SciPy** | Provides the optimization solver used through CVXPY |
-| **CSV** | Reads the dataset and is included in Python's standard library |
+  -----------------------------------------------------------------------
+  Technology / Library                Purpose
+  ----------------------------------- -----------------------------------
+  **Python**                          Main programming language
+
+  **CVXPY**                           Defines optimization variables,
+                                      objective function and constraints
+
+  **NumPy**                           Handles numerical arrays and food
+                                      nutrient data
+
+  **SciPy**                           Provides the optimization solver
+                                      interface used through CVXPY
+
+  **CSV**                             Reads the food dataset using
+                                      Python's standard library
+  -----------------------------------------------------------------------
 
 ## Project Structure
 
-```text
-OptimalPoint/
+``` text
+Diet_Planner/
 │
-├── main.py
-├── diet_optimization.py
-├── diet_dataset.csv
-└── README.md
+├── code/
+│   ├── main.py
+│   ├── diet_optimization.py
+│   ├── diet_dataset.csv
+│   └── README.md
+│
+└── report.pdf
 ```
 
-- **main.py:** Handles user input, input validation, activity-level selection, nutrient preferences and the main program loop.
-- **diet_optimization.py:** Handles dataset loading, calorie calculation, nutrient constraints, the optimization model and diet-plan output.
-- **diet_dataset.csv:** Contains the Indian vegetarian food dataset.
-- **README.md:** Contains project information and setup instructions.
+-   **main.py:** Handles user input, input validation, activity-level
+    selection, nutrient preferences and the main program loop.
+-   **diet_optimization.py:** Handles dataset loading, calorie
+    calculation, optimization constraints, cost minimization and
+    diet-plan output.
+-   **diet_dataset.csv:** Contains the synthetic dataset of 100 Indian
+    vegetarian food items.
+-   **README.md:** Contains project information and setup instructions.
+-   **report.pdf:** Contains the mathematical formulation, methodology,
+    solver details and experimental results.
 
 ## Installation and Setup
 
 ### 1. Install Python
 
-Install Python and make sure Python and `pip` are available from the terminal.
+Install Python and make sure Python and `pip` are available from the
+terminal.
 
 ### 2. Download or Clone the Project
 
-Download the project files or clone the repository:
-
-```bash
-git clone https://github.com/JyotiradityaParida/Diet_Planner.git
-cd Diet_Planner/code
-```
-
 ### 3. Keep the Required Files Together
 
-Make sure `main.py`, `diet_optimization.py` and `diet_dataset.csv` are in the same project folder. The program reads the CSV file from its current working directory.
+Make sure `main.py`, `diet_optimization.py` and `diet_dataset.csv` are
+in the same `code` directory. The optimization module reads the CSV file
+from the current working directory.
 
 ### 4. Install Dependencies
 
 Run:
 
-```bash
+``` bash
 pip install numpy cvxpy scipy
 ```
 
-The `csv` module does not need to be installed separately because it is included with Python.
+The `csv` module does not need to be installed separately because it is
+included in Python's standard library.
 
 ### 5. Run the Program
 
 Run the main file:
 
-```bash
+``` bash
 python main.py
 ```
