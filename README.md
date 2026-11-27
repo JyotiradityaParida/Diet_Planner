@@ -176,7 +176,6 @@ suitable diet plan could not be generated.
 
 ## Technologies and Libraries Used
 
-  -----------------------------------------------------------------------
 | Technology / Library | Purpose |
 |---|---|
 | **Python** | Main programming language |
@@ -214,32 +213,36 @@ Diet_Planner/
 
 ### 1. Install Python
 
-Install Python and make sure Python and `pip` are available from the
-terminal.
+Install Python and make sure Python and `pip` are available from the terminal.
 
-### 2. Download or Clone the Project
+### 2. Download the Project
 
-### 3. Keep the Required Files Together
+Download the project folder and extract it to your preferred location.
 
-Make sure `main.py`, `diet_optimization.py` and `diet_dataset.csv` are
-in the same `code` directory. The optimization module reads the CSV file
-from the current working directory.
+### 3. Navigate to the Code Directory
+
+Open a terminal in the project folder and navigate to the `code` directory:
+
+```bash
+cd code
+```
+
+Make sure `main.py`, `diet_optimization.py` and `diet_dataset.csv` are present in this directory.
 
 ### 4. Install Dependencies
 
-Run:
+Run the following command to install the required libraries:
 
-``` bash
+```bash
 pip install numpy cvxpy scipy
 ```
 
-The `csv` module does not need to be installed separately because it is
-included in Python's standard library.
+The `csv` module does not need to be installed separately because it is included in Python's standard library.
 
 ### 5. Run the Program
 
-Run the main file:
+From the same `code` directory, run:
 
-``` bash
+```bash
 python main.py
 ```
