@@ -130,24 +130,24 @@ calorie requirement.
 
 The daily calorie target is distributed as follows:
 
-  Meal          Calorie Share
-  ----------- ---------------
-  Breakfast               25%
-  Lunch                   40%
-  Dinner                  35%
+| Meal      | Calorie Share |
+|-----------|--------------:|
+| Breakfast | 25%           |
+| Lunch     | 40%           |
+| Dinner    | 35%           |
 
 Each meal must contain between 80% and 120% of its allocated calorie
 target.
 
 **Nutritional Limits**
 
-  Nutrient        Minimum                 Maximum
-  --------------- ----------------------- ----------------------
-  Protein         0.8 × Body Weight (g)   2 × Body Weight (g)
-  Carbohydrates   (35% × Calories) ÷ 4    (65% × Calories) ÷ 4
-  Fat             (20% × Calories) ÷ 9    (30% × Calories) ÷ 9
-  Fibre           25 g                    100 g
-  Sugar           0 g                     (10% × Calories) ÷ 4
+| Nutrient      | Minimum                  | Maximum                  |
+|---------------|--------------------------|--------------------------|
+| Protein       | 0.8 × Body Weight (g)    | 2 × Body Weight (g)      |
+| Carbohydrates | (35% × Calories) ÷ 4     | (65% × Calories) ÷ 4     |
+| Fat           | (20% × Calories) ÷ 9     | (30% × Calories) ÷ 9     |
+| Fibre         | 25 g                     | 100 g                     |
+| Sugar         | 0 g                      | (10% × Calories) ÷ 4     |
 
 **Nutrient Preferences**
 
@@ -177,22 +177,13 @@ suitable diet plan could not be generated.
 ## Technologies and Libraries Used
 
   -----------------------------------------------------------------------
-  Technology / Library                Purpose
-  ----------------------------------- -----------------------------------
-  **Python**                          Main programming language
-
-  **CVXPY**                           Defines optimization variables,
-                                      objective function and constraints
-
-  **NumPy**                           Handles numerical arrays and food
-                                      nutrient data
-
-  **SciPy**                           Provides the optimization solver
-                                      interface used through CVXPY
-
-  **CSV**                             Reads the food dataset using
-                                      Python's standard library
-  -----------------------------------------------------------------------
+| Technology / Library | Purpose |
+|---|---|
+| **Python** | Main programming language |
+| **CVXPY** | Defines optimization variables, objective function and constraints |
+| **NumPy** | Handles numerical arrays and food nutrient data |
+| **SciPy** | Provides the optimization solver interface used through CVXPY |
+| **CSV** | Reads the food dataset using Python's standard library |
 
 ## Project Structure
 
