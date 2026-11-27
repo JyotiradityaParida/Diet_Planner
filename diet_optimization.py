@@ -20,11 +20,14 @@ fibre = np.array([float(food["fibre"]) for food in foods])
 sugar = np.array([float(food["sugar"]) for food in foods])
 cost = np.array([float(food["cost"]) for food in foods])
 limits = np.array([int(food["max_servings"]) for food in foods])
-group_limits = np.array([int(food["max_group_servings"]) for food in foods])
 
 n = len(foods)
 meal_names = ["Breakfast", "Lunch", "Dinner"]
 meal_shares = [0.25, 0.40, 0.35]
+
+group_limits = {
+    "breakfast": 4, "rice": 3, "roti": 5, "dal": 1, "beans": 2,"soya": 1, "paneer": 1, "vegetable": 3, "dairy": 2, "fruit": 2
+}
 
 nutrients = {
     1: "Protein",
@@ -61,12 +64,12 @@ def optimize_diet(target, weight, high_nutrients, low_nutrients):
             elif meal_types[i] == "main" and j == 0:
                 constraints.append(x[i, j] == 0)
 
-    for group in set(food_groups):
+    for group, group_limit in group_limits.items():
         indices = [i for i in range(n) if food_groups[i] == group]
-        group_limit = group_limits[indices[0]]
 
-        for j in range(3):
-            constraints.append(cp.sum(x[indices, j]) <= group_limit)
+        if indices:
+            for j in range(3):
+                constraints.append(cp.sum(x[indices, j]) <= group_limit)
 
     total_calories = cp.sum(cp.multiply(calories.reshape(-1, 1), x))
     total_carbs = cp.sum(cp.multiply(carbs.reshape(-1, 1), x))
