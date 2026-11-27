@@ -3,7 +3,7 @@ import numpy as np
 import cvxpy as cp
 
 
-with open("diet_dataset.csv", "r", newline="") as file:
+with open("diet_dataset.csv", "r", newline="", encoding="utf-8-sig") as file:
     foods = list(csv.DictReader(file))
 
 names = [food["food_name"] for food in foods]
@@ -20,6 +20,7 @@ fibre = np.array([float(food["fibre"]) for food in foods])
 sugar = np.array([float(food["sugar"]) for food in foods])
 cost = np.array([float(food["cost"]) for food in foods])
 limits = np.array([int(food["max_servings"]) for food in foods])
+group_limits = np.array([int(food["max_group_servings"]) for food in foods])
 
 n = len(foods)
 meal_names = ["Breakfast", "Lunch", "Dinner"]
@@ -45,13 +46,10 @@ def calculate_calories(age, sex, height, weight, activity):
 
 def optimize_diet(target, weight, high_nutrients, low_nutrients):
     x = cp.Variable((n, 3), integer=True)
-    y = cp.Variable((n, 3), boolean=True)
 
     daily_x = cp.sum(x, axis=1)
 
     constraints = [
-        x >= y,
-        x <= cp.multiply(limits.reshape(-1, 1), y),
         x >= 0,
         daily_x <= limits
     ]
@@ -59,21 +57,16 @@ def optimize_diet(target, weight, high_nutrients, low_nutrients):
     for i in range(n):
         for j in range(3):
             if meal_types[i] == "breakfast" and j != 0:
-                constraints.append(y[i, j] == 0)
+                constraints.append(x[i, j] == 0)
             elif meal_types[i] == "main" and j == 0:
-                constraints.append(y[i, j] == 0)
+                constraints.append(x[i, j] == 0)
 
-    for j in range(3):
-        groups = sorted(set(food_groups))
+    for group in set(food_groups):
+        indices = [i for i in range(n) if food_groups[i] == group]
+        group_limit = group_limits[indices[0]]
 
-        for group in groups:
-            indices = [
-                i for i in range(n)
-                if food_groups[i] == group
-            ]
-
-            if len(indices) > 1:
-                constraints.append(cp.sum(y[indices, j]) <= 1)
+        for j in range(3):
+            constraints.append(cp.sum(x[indices, j]) <= group_limit)
 
     total_calories = cp.sum(cp.multiply(calories.reshape(-1, 1), x))
     total_carbs = cp.sum(cp.multiply(carbs.reshape(-1, 1), x))
@@ -111,7 +104,6 @@ def optimize_diet(target, weight, high_nutrients, low_nutrients):
 
     for j in range(3):
         meal_calories = cp.sum(cp.multiply(calories, x[:, j]))
-        meal_foods = cp.sum(y[:, j])
         meal_target = target * meal_shares[j]
 
         constraints += [
@@ -119,17 +111,7 @@ def optimize_diet(target, weight, high_nutrients, low_nutrients):
             meal_calories <= meal_target * 1.20
         ]
 
-        if j == 0:
-            constraints += [
-                meal_foods >= 2,
-                meal_foods <= 4
-            ]
-        else:
-            constraints += [
-                meal_foods >= 3,
-                meal_foods <= 5
-            ]
-
+        if j != 0:
             protein_indices = [
                 i for i in range(n)
                 if categories[i] == "protein"
@@ -141,10 +123,10 @@ def optimize_diet(target, weight, high_nutrients, low_nutrients):
             ]
 
             if protein_indices:
-                constraints.append(cp.sum(y[protein_indices, j]) >= 1)
+                constraints.append(cp.sum(x[protein_indices, j]) >= 1)
 
             if vegetable_indices:
-                constraints.append(cp.sum(y[vegetable_indices, j]) >= 1)
+                constraints.append(cp.sum(x[vegetable_indices, j]) >= 1)
 
     problem = cp.Problem(
         cp.Minimize(total_cost),
